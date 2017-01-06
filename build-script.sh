@@ -62,5 +62,6 @@ svn checkout http://svn.zoo-project.org/svn/trunk/thirds/ $BUILD_ROOT/thirds \
 apt-get remove --purge -y $BUILD_PACKAGES \
   && rm -rf /var/lib/apt/lists/*
 
-rm -rf $BUILD_ROOT/mapserver-6.0.4
+# delay until final zoo-project build
+# rm -rf $BUILD_ROOT/mapserver-6.0.4
 rm $BUILD_ROOT/mapserver-6.0.4.tar.gz
