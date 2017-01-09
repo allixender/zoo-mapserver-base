@@ -36,7 +36,7 @@ mkdir -p $BUILD_ROOT \
   && mkdir -p $CGI_DATA_DIR \
   && mkdir -p $CGI_TMP_DIR \
   && mkdir -p $CGI_CACHE_DIR \
-  && ln -s /usr/lib/x86_64-linux-gnu /usr/lib64
+  && ln -s /usr/lib/x86_64-linux-gnu /usr/lib64 || exit 1
 
 wget -nv -O $BUILD_ROOT/mapserver-6.0.4.tar.gz http://download.osgeo.org/mapserver/mapserver-6.0.4.tar.gz \
   && cd $BUILD_ROOT/ && tar -xzf mapserver-6.0.4.tar.gz \
@@ -47,7 +47,7 @@ wget -nv -O $BUILD_ROOT/mapserver-6.0.4.tar.gz http://download.osgeo.org/mapserv
                --with-xml --with-xslt --with-threads --with-cairo \
   && sed -i "s/-lgeos-3.4.2_c/-lgeos-3.4.2\ -lgeos_c/g" Makefile \
   && sed -i "s/-lm -lstdc++/-lm -lstdc++ -ldl/g" Makefile \
-  && make && cp mapserv $CGI_DIR
+  && make && cp mapserv $CGI_DIR || exit 1
 
 
 # here are the thirds
@@ -55,7 +55,7 @@ ln -s /usr/lib/libfcgi.so.0.0.0 /usr/lib64/libfcgi.so \
   && ln -s /usr/lib/libfcgi++.so.0.0.0 /usr/lib64/libfcgi++.so
 
 svn checkout http://svn.zoo-project.org/svn/trunk/thirds/ $BUILD_ROOT/thirds \
-  && cd $BUILD_ROOT/thirds/cgic206 && make
+  && cd $BUILD_ROOT/thirds/cgic206 && make || exit 1
 
 # RUN apt-get remove --purge -y $BUILD_PACKAGES $AUTO_ADDED_PACKAGES
 
